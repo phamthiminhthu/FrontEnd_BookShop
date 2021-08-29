@@ -1,0 +1,25 @@
+.container {
+  overflow: hidden;
+}
+
+.container .carousel-book .nav {
+  padding: 0px;
+}
+
+.container .carousel-book .nav a {
+  padding: 10px;
+  -webkit-box-shadow: 2px 1px 15px 1px gray;
+          box-shadow: 2px 1px 15px 1px gray;
+}
+
+.container .carousel-book .nav a img {
+  height: 290px;
+}
+
+.container .carousel-book .nav a img:hover {
+  -webkit-box-shadow: 0px 11px 18px gray;
+          box-shadow: 0px 11px 18px gray;
+  -webkit-transform: scale(1.025);
+          transform: scale(1.025);
+}
+/*# sourceMappingURL=listCategory.css.map */

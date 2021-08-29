@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            overflow-x: scroll;
+            width: 100%;
+        }
+        
+        main {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        span {
+            position: absolute;
+            top: 37%;
+            font-size: 60px;
+            font-weight: bold;
+            color: purple;
+            cursor: pointer;
+            left: .5%;
+            z-index: 1;
+        }
+        
+        span:nth-of-type(2) {
+            left: 98%;
+            text-align: right;
+        }
+        
+        section {
+            background-color: #f4f4f4;
+            width: 100%;
+            float: left;
+            transition: margin 0.5s ease;
+            overflow-x: scroll;
+        }
+        
+        div {
+            float: left;
+            height: 200px;
+            text-align: center;
+            padding-top: 60px;
+            font-size: 100px;
+            font-weight: bold;
+            color: white;
+            background-color: purple;
+            transition: 0.1s;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <span>&#139</span>
+        <span>&#155</span>
+        <header>
+            <section>
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+                <div>10</div>
+                <div>11</div>
+                <div>12</div>
+            </section>
+        </header>
+    </main>
+
+</body>
+<script>
+    var span = document.getElementsByTagName('span');
+    var div = document.getElementsByTagName('div');
+    const section = document.querySelector('section');
+    const mainWidth = section.offsetWidth;
+    const sectionDiv = section.children;
+    const margin = 30;
+
+    var l = 0;
+    var items = 0;
+    var totalWidth = 0;
+
+
+    resposive = [{
+            breakPoint: {
+                width: 0,
+                item: 1
+            }
+        }, {
+            breakPoint: {
+                width: 600,
+                item: 2
+            }
+        }, {
+            breakPoint: {
+                width: 900,
+                item: 4
+            }
+        }
+
+    ];
+    for (var i = 0; i < resposive.length; i++) {
+        if (window.innerWidth > resposive[i].breakPoint.width) {
+            items = resposive[i].breakPoint.item;
+        }
+    }
+
+    for (let i = 0; i < sectionDiv.length; i++) {
+        sectionDiv[i].style.width = (mainWidth / items - margin) + "px";
+        sectionDiv[i].style.margin = margin / 2 + "px";
+        totalWidth += mainWidth / items;
+    }
+
+    section.style.width = totalWidth + "px";
+
+
+    span[1].onclick = () => {
+        ++l;
+        console.log((Math.ceil(sectionDiv.length / items)), l);
+        if (l >= ((Math.ceil(sectionDiv.length / items)) + 1)) {
+            l = (Math.ceil(sectionDiv.length / items)) + 1;
+        }
+        section.style.marginLeft = -(mainWidth * l) + (mainWidth / items) * 2 * l + "px";
+        console.log(section.style.marginLeft);
+
+
+    }
+    span[0].onclick = () => {
+        --l;
+        console.log((Math.ceil(sectionDiv.length / items)), l);
+        if (l <= 0) {
+            l = 0;
+        }
+        section.style.marginLeft = -(mainWidth * l) + (mainWidth / items) * 2 * l + "px";
+        console.log(section.style.marginLeft);
+    }
+</script>
+
+</html>

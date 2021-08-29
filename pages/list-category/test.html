@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    .thumbnail-slider {
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .thumbnail-container {
+        width: 100%;
+        float: left;
+        transition: margin 1s ease;
+    }
+    
+    .thumbnail-container .item {
+        height: 250px;
+        background-color: gray;
+        line-height: 250px;
+        text-align: center;
+        font-size: 50px;
+        color: #fff;
+        float: left;
+    }
+    
+    .thumbnail-slider .controls {
+        width: 100%;
+        float: left;
+    }
+    
+    .thumbnail-slider .controls ul {
+        display: block;
+        text-align: center;
+    }
+    
+    .thumbnail-slider .controls ul li {
+        list-style: none;
+        height: 35px;
+        width: 35px;
+        border: 1px solid #c3c3c3;
+        margin: 3px;
+        display: inline-block;
+        line-height: 35px;
+        cursor: pointer;
+    }
+    
+    .thumbnail-slider .controls ul .active {
+        background-color: green;
+        color: white;
+    }
+</style>
+
+<body>
+
+    <div class="thumbnail-slider">
+        <div class="thumbnail-container">
+            <div class="item">
+                1
+            </div>
+            <div class="item">
+                2
+            </div>
+            <div class="item">
+                3
+            </div>
+            <div class="item">
+                4
+            </div>
+            <div class="item">
+                5
+            </div>
+            <div class="item">
+                6
+            </div>
+            <div class="item">
+                7
+            </div>
+            <div class="item">
+                8
+            </div>
+            <div class="item">
+                9
+            </div>
+            <div class="item">
+                10
+            </div>
+            <div class="item">
+                11
+            </div>
+            <div class="item">
+                12
+            </div>
+        </div>
+        <div class="controls">
+
+        </div>
+
+    </div>
+
+    <script>
+        const controls = document.querySelector(".controls");
+        const container = document.querySelector(".thumbnail-container");
+        const allBox = container.children;
+        const containerWidth = container.offsetWidth;
+        const margin = 30;
+        var items = 0;
+        var totalItems = 0;
+        var jumpSlideWidth = 0;
+        console.log(containerWidth);
+        resposive = [{
+                breakPoint: {
+                    width: 0,
+                    item: 1
+                }
+            }, {
+                breakPoint: {
+                    width: 600,
+                    item: 2
+                }
+            }, {
+                breakPoint: {
+                    width: 900,
+                    item: 3
+                }
+            }
+
+        ];
+
+
+        function load() {
+            for (let i = 0; i < resposive.length; i++) {
+                if (window.innerWidth > resposive[i].breakPoint.width) {
+                    items = resposive[i].breakPoint.item;
+                }
+            }
+            start();
+
+        }
+
+        function start() {
+            var totalItemsWidth = 0;
+            for (let i = 0; i < allBox.length; i++) {
+                allBox[i].style.width = (containerWidth / items - margin) + "px";
+                allBox[i].style.margin = (margin / 2) + "px";
+                totalItemsWidth += containerWidth / items;
+                totalItems++;
+
+            }
+            container.style.width = totalItemsWidth + "px";
+            const allSlides = Math.ceil(totalItems / items);
+            const ul = document.createElement("ul");
+            for (let i = 1; i <= allSlides; i++) {
+                const li = document.createElement("li");
+                li.id = i;
+                li.innerHTML = i;
+                li.setAttribute("onclick", "controlSlides(this)");
+                ul.appendChild(li);
+                if (i == 1) {
+                    li.className = "active";
+                }
+
+            }
+            controls.appendChild(ul);
+            //controlSlides();
+
+
+        }
+
+        function controlSlides(ele) {
+            const ul = controls.children;
+            const li = ul[0].children;
+            var active;
+            for (let i = 0; i < li.length; i++) {
+                if (li[i].className == "active") {
+                    active = i;
+                    li[i].className = "";
+                }
+            }
+            ele.className = "active";
+            var numb = (ele.id - 1) - active;
+            jumpSlideWidth += containerWidth * numb;
+            container.style.marginLeft = -jumpSlideWidth + "px";
+            console.log(container.style.marginLeft);
+
+
+
+        }
+        window.onload = load();
+    </script>
+
+
+</body>
+
+</html>
